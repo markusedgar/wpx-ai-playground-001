@@ -16,10 +16,10 @@ class StreamHandler(BaseCallbackHandler):
 
 with st.sidebar:
    "This is an experimental space for the TiSDD training. Do not use with real project data."
-   gptversion = 'gpt-4' # default: GPT-4
+   gptversion = 'gpt-3.5-turbo' # default: gpt-3.5-turbo
    gptversion = st.selectbox(
     'Choose ChatGPT version',
-    ('gpt-4', 'gpt-4-0613', 'gpt-3.5-turbo'))
+    ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-0613'))
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
