@@ -15,14 +15,13 @@ class StreamHandler(BaseCallbackHandler):
 
 
 with st.sidebar:
-   "This is an experimental space for the TiSDD training. Do not use with real project data."
-
-"<b>PROMPT EXAMPLES FOR IDEATION</b> <br/>
-
-* Create 10+ new and innovative ideas for the following question(s): How might we ….?  
-* What are the most common pain pints that customers encounter when using services/products like (pick one from the previous prompt)?
-* How might we help our customers to overcome those pain points?
-* Let's zoom into: (copy idea from before)Create 10 wildly different ideas how to do this. "
+   "This is an experimental space for the TiSDD training. Do not use with real project data. 
+   
+   <b>PROMPT EXAMPLES FOR IDEATION</b> <br/>
+   * Create 10+ new and innovative ideas for the following question(s): How might we ….?  
+   * What are the most common pain pints that customers encounter when using services/products like (pick one from the previous prompt)?
+   * How might we help our customers to overcome those pain points?
+   * Let's zoom into: (copy idea from before)Create 10 wildly different ideas how to do this. "
 
 
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
