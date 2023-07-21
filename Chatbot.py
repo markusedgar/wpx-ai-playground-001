@@ -28,7 +28,7 @@ st.title('TiSDD Helper Chat ')
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
-    st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I really help you?")]
+    st.session_state.messages.append(ChatMessage(role="assistant", content="How can I really help you?"))
 
 
 for msg in st.session_state.messages:
