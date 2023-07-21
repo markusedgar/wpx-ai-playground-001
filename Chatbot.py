@@ -18,7 +18,7 @@ with st.sidebar:
    "This is an experimental space for the TiSDD training. Do not use with real project data. Currently GPT-4."
    gptversion = st.selectbox(
     'Choose ChatGPT version',
-    ('gpt-3.5-turbo', 'gpt-4'))
+    ('gpt-4', 'gpt-3.5-turbo'))
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
