@@ -28,8 +28,6 @@ st.title('TiSDD Helper Chat ')
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
-    st.session_state.messages.append(ChatMessage(role="assistant", content="How can I really help you?"))
-
 
 for msg in st.session_state.messages:
     st.chat_message(msg.role).write(msg.content)
@@ -37,6 +35,7 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input():
     st.session_state.messages.append(ChatMessage(role="user", content=prompt))
     st.chat_message("user").write(prompt)
+    st.snow()
 
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
