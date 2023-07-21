@@ -16,7 +16,9 @@ class StreamHandler(BaseCallbackHandler):
 
 with st.sidebar:
    "This is an experimental space for the TiSDD training. Do not use with real project data. Currently GPT-4."
-   
+   gptversion = st.selectbox(
+    'Choose ChatGPT version',
+    ('gpt-3.5-turbo', 'gpt-4'))
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
@@ -39,6 +41,6 @@ if prompt := st.chat_input():
 
     with st.chat_message("assistant"):
         stream_handler = StreamHandler(st.empty())
-        llm = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4", streaming=True, callbacks=[stream_handler])
+        llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion, streaming=True, callbacks=[stream_handler])
         response = llm(st.session_state.messages)
         st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
