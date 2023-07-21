@@ -15,7 +15,10 @@ class StreamHandler(BaseCallbackHandler):
 
 
 with st.sidebar:
-    openai_api_key = st.text_input("OpenAI API Key", type="password")
+   "This is an experimental space for the TiSDD training. Do not use with real project data."
+    # openai_api_key = st.text_input("OpenAI API Key", type="password")
+   
+openai_api_key = "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"
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
