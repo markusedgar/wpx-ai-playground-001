@@ -15,7 +15,7 @@ class StreamHandler(BaseCallbackHandler):
 
 
 with st.sidebar:
-   "This is an experimental space for the TiSDD training. Do not use with real project data."
+   "This is an experimental space for the TiSDD training. Do not use with real project data. Currently GPT-4."
    
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
