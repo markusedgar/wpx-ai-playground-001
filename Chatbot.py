@@ -18,7 +18,8 @@ with st.sidebar:
    "This is an experimental space for the TiSDD training. Do not use with real project data."
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
-openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
+openai_api_key = "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"
+## st.secrets.wpxspecial.OPENAIAPIKEY
 
 st.title('TiSDD Helper Chat')
 
