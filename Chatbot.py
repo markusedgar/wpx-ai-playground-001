@@ -20,6 +20,7 @@ with st.sidebar:
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
+st.title(st.secrets.wpxspecial.OPENAIAPIKEY)
 st.title('TiSDD Helper Chat')
 
 if "messages" not in st.session_state:
