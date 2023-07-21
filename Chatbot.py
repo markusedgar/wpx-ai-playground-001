@@ -20,7 +20,7 @@ with st.sidebar:
    
 openai_api_key = "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"
 
-st.title('This is Service Design Chatting with A.I.')
+st.title('TiSDD Essentials July 2023')
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
