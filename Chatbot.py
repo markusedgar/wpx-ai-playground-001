@@ -39,6 +39,6 @@ if prompt := st.chat_input():
 
     with st.chat_message("assistant"):
         stream_handler = StreamHandler(st.empty())
-        llm = ChatOpenAI(openai_api_key=openai_api_key, streaming=True, callbacks=[stream_handler])
+        llm = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4", streaming=True, callbacks=[stream_handler])
         response = llm(st.session_state.messages)
         st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
