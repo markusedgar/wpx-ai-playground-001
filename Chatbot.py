@@ -3,6 +3,17 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
 import streamlit as st
 
+st.set_page_config(
+    page_title="Ex-stream-ly Cool App",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
 
 class StreamHandler(BaseCallbackHandler):
     def __init__(self, container, initial_text=""):
@@ -29,14 +40,13 @@ st.title('TiSDD Helper Chat ')
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
 
-    
+
 for msg in st.session_state.messages:
     st.chat_message(msg.role).write(msg.content)
 
 if prompt := st.chat_input():
     st.session_state.messages.append(ChatMessage(role="user", content=prompt))
     st.chat_message("user").write(prompt)
-    st.snow()
 
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
