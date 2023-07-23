@@ -5,6 +5,8 @@ from langchain.schema import ChatMessage
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
  
+st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
+
 class StreamHandler(BaseCallbackHandler):
     def __init__(self, container, initial_text=""):
         self.container = container
@@ -70,7 +72,6 @@ def load_LLM(openai_api_key):
     llm = OpenAI(openai_api_key=openai_api_key)
     return llm
 
-st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 st.header("TiSDD Journey Map Generator")
 
 st.markdown("# Some heading 2")
