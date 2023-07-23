@@ -123,7 +123,9 @@ with st.form(key='journey_input_form'):
         for msg in st.session_state.messages:   
             st.chat_message(msg.role).write(msg.content)
 
-        st.session_state.messages.append(human_message_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
+        formatted_prompt = chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()
+        messages = formatted_prompt.to_messages()
+        st.session_state.messages.append(messages)
         
         #  st.session_state.messages.append(ChatMessage(role="user", content=chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
         
