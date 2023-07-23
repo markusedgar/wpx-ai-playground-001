@@ -3,28 +3,30 @@ from langchain import PromptTemplate
 from langchain.llms import OpenAI
  
 template = """
-    Below is a description of a new service business concept, a target audience (as a persona description), and the scope of the journey.     
+    Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
-    CONCEPT: 
-    {concept}
-
     PERSONA: 
     {persona}
+
+    CONCEPT: 
+    {concept}
 
     SCOPE: 
     {scope}
 
-    For the given concept create customer experience as a step-by-step journey map. 
+    For the given concept create customer experience as a step-by-step journey map as a table with one column for each step.
+
+    Each step has a title. Only use one or two words for the title. 
+    Each step has a description (activities and experiences of the given persona at this step). Use {person_select} for the description. Use emotional language where appropriate.
     
-    Mark all steps of the journey either as
-    * direct touchpoints (iteracting with the consultancy, e.g. meeting, workshop or phone call)
-    * Indirect touchpoints (interacting with information about the consultancy, e.g. review sites, word of mouth)
-    * Internal steps (not interacting with the consultancy, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
+    Add a label for each step of the journey either as
+    * direct touchpoint (iteracting with the provider, e.g. meeting, workshop or phone call)
+    * Indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth)
+    * Internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
 
-    Create a step-by-step journey map with at least 12+ steps, describing activities and experiences of the given persona at each step. 
-    Use {person_select} for the description.
+    Create a step-by-step journey map with at least 12+ steps, 
 
-    Output the journey map as a markdown table with steps going from left to right as columns like the following format
+    Output the journey map as a markdown table with one column for each step. Use the format:
 
     (step title) | (step title) | (step title) | (step title) | …
     --- | --- | --- | --- | --- 
