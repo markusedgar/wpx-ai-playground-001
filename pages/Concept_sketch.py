@@ -117,7 +117,8 @@ with st.form(key='journey_input_form'):
     submit_button = st.form_submit_button(label='Generate journey draft')
     if submit_button:
         st.markdown("### Your Journey Draft:")
-        st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
+        ##st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
+        st.session_state.messages.append(human_message_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
         #if "messages" not in st.session_state:
         #    st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
         for msg in st.session_state.messages:   
