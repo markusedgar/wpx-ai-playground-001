@@ -2,8 +2,11 @@ import streamlit as st
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
-from langchain import PromptTemplate
-from langchain.llms import OpenAI
+import {
+  ChatPromptTemplate,
+  SystemMessagePromptTemplate,
+  HumanMessagePromptTemplate
+} from "langchain/prompts";
  
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 
@@ -28,20 +31,23 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 
-template = """
+systemTemplate = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach.";
+systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(template);
+
+humanTemplate = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
     PERSONA: 
-    {persona}
+    {persona_input}
 
     CONCEPT: 
-    {concept}
+    {concept_input}
 
     SCOPE: 
-    {scope}
+    {scope_input}
 
     For the given concept create customer experience as a step-by-step journey map as a table with one column for each step.
-    Use {person_select} for any description. Use emotional language where appropriate.
+    Use {perspective_input} for any description. Use emotional language where appropriate.
 
     For each step create:
 
@@ -57,22 +63,16 @@ template = """
     (title) | (title) | (title) | (title) | …
     --- | --- | --- | --- | --- 
     ( description) | (description) | (description) | (description) | …
-    ( label) | (label) | (label) | (label) | …
+    ( label) | (label) | (label) | (label) | … """
 
-"""
+humanMessagePrompt = HumanMessagePromptTemplate.fromTemplate(humanTemplate)
 
-prompt = PromptTemplate(
-    input_variables=["persona", "concept", "scope", "person_select"],
-    template=template,
-)
+chatPrompt = ChatPromptTemplate.fromPromptMessages([systemMessagePrompt, humanMessagePrompt])
 
-st.write(prompt)
-
-def load_LLM(openai_api_key):
-    """Logic for loading the chain you want to use should go here."""
-    # Make sure your openai_api_key is set as an environment variable
-    llm = OpenAI(openai_api_key=openai_api_key)
-    return llm
+## humanMessagePrompt = ChatPromptTemplate(
+##    input_variables=["persona", "concept", "scope", "person_select"],
+##    template=template,
+## )
 
 st.header("TiSDD Journey Map Generator")
 
@@ -109,6 +109,23 @@ with st.form(key='journey_input_form'):
     scope_input = get_scope()
     
     submit_button = st.form_submit_button(label='Generate journey draft')
+    if submitted:
+        st.markdown("### Your Journey Draft:")
+        if "messages" not in st.session_state:
+            st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
+        for msg in st.session_state.messages:   
+            st.chat_message(msg.role).write(msg.content)
+
+        with st.chat_message("assistant"):
+            stream_handler = StreamHandler(st.empty())
+            llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion, streaming=True, callbacks=[stream_handler])
+            response = llm(st.session_state.messages)
+            st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
+
+
+
+
+
 
 
 ## if len(concept_input.split(" ")) > 100:
@@ -119,23 +136,6 @@ with st.form(key='journey_input_form'):
 ##     st.write("Please enter a shorter concept description. The maximum length is 500 words.")
 ##    st.stop()
 
-st.markdown("### Your Journey Draft:")
 
 
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
 
-for msg in st.session_state.messages:
-    st.chat_message(msg.role).write(msg.content)
-
-
-st.session_state.messages.append(ChatMessage(role="user", content=prompt))
-
-for msg in st.session_state.messages:
-    st.chat_message(msg.role).write(msg.content)
-
-with st.chat_message("assistant"):
-        stream_handler = StreamHandler(st.empty())
-        llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion, streaming=True, callbacks=[stream_handler])
-        response = llm(st.session_state.messages)
-        st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
