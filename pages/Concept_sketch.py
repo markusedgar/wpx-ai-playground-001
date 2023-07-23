@@ -123,13 +123,16 @@ st.markdown("### Your Journey Draft:")
 ##st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
+
 for msg in st.session_state.messages:   
     st.chat_message(msg.role).write(msg.content)
 
-formatted_prompt = chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input)
-messages = formatted_prompt.to_messages()
-for msg in messages:   
-    st.session_state.messages.append(msg)
+
+if concept_input:
+    formatted_prompt = chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input)
+    messages = formatted_prompt.to_messages()
+    for msg in messages:   
+        st.session_state.messages.append(msg)
 
 #  st.session_state.messages.append(ChatMessage(role="user", content=chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
 
@@ -138,8 +141,6 @@ with st.chat_message("assistant"):
     llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion, streaming=True, callbacks=[stream_handler])
     response = llm(st.session_state.messages)
     st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
-
-
 
 
 ## if len(concept_input.split(" ")) > 100:
