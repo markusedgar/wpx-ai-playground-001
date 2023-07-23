@@ -65,7 +65,7 @@ humanTemplate = """
     ( description) | (description) | (description) | (description) | …
     ( label) | (label) | (label) | (label) | … """
 
-humanMessagePrompt = HumanMessagePromptTemplate.fromTemplate(humanTemplate)
+humanMessagePrompt = HumanMessagePromptTemplate.from_template(humanTemplate)
 
 ## prompt=PromptTemplate(
 ##    template=humanTemplate,
