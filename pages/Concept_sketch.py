@@ -21,7 +21,7 @@ template = """
     * Indirect touchpoints (interacting with information about the consultancy, e.g. review sites, word of mouth)
     * Internal steps (not interacting with the consultancy, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
 
-    Create a step-by-step journey map, describing activities and experiences of the given persona at each step. 
+    Create a step-by-step journey map with at least 12+ steps, describing activities and experiences of the given persona at each step. 
     Use {person_select} for the description.
 
     Output the journey map as a markdown table with steps going from left to right as columns like the following format
@@ -112,4 +112,4 @@ if concept_input:
 
     journey_draft = llm(prompt_with_concept)
 
-    st.write(journey_draft)
+    st.write(journey_draft) with at least 12+ steps
