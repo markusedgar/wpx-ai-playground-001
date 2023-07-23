@@ -52,7 +52,7 @@ with col1:
     st.markdown("Explanation")
 
 with col2:
-    st.image(image='TweetScreenshot.png', width=500, caption='https://twitter.com/DannyRichman/status/1598254671591723008')
+    st.markdown("Explanation")
 
 st.markdown("## Some heading")
 
