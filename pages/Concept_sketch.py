@@ -115,7 +115,7 @@ with st.form(key='journey_input_form'):
     scope_input = get_scope()
     
     submit_button = st.form_submit_button(label='Generate journey draft')
-    if submitted:
+    if submit_button:
         st.markdown("### Your Journey Draft:")
         if "messages" not in st.session_state:
             st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
