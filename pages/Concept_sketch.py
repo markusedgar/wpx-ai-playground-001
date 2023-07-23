@@ -108,7 +108,7 @@ if concept_input:
 
     llm = load_LLM(openai_api_key=openai_api_key)
 
-    prompt_with_concept = prompt.format(persona=persona_input, concept=concept_input, person=option_person, scope=scope_input)
+    prompt_with_concept = prompt.format(persona=persona_input, concept=concept_input, scope=scope_input, person_select=option_person)
 
     journey_draft = llm(prompt_with_concept)
 
