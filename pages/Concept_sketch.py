@@ -46,15 +46,7 @@ def load_LLM(openai_api_key):
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 st.header("TiSDD Journey Map Generator")
 
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("Explanation")
-
-with col2:
-    st.markdown("Explanation")
-
-st.markdown("## Some heading")
+st.markdown("# Some heading")
 
 def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
@@ -62,16 +54,10 @@ def get_api_key():
 
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
-col1, col2 = st.columns(2)
-with col1:
-    option_person = st.selectbox(
-        'Which person would you like to use for the journey?',
-        ('first person (me, myself, I)', 'third person (he/she/them)'))
-    
-with col2:
-    option_scope = st.selectbox(
-        'Which scope would you like to look at?',
-        ('end-2-end', ''))
+
+def get_persona():
+    input_text = st.text_area(label="Persona input", label_visibility='collapsed', placeholder="Your persona...", key="persona_input")
+    return input_text
 
 def get_concept():
     input_text = st.text_area(label="Concept input", label_visibility='collapsed', placeholder="Your concept...", key="concept_input")
@@ -82,8 +68,22 @@ def get_scope():
     return input_text
 
 
-scope_input = get_scope()
+st.markdown("## Perspective")
+option_person = st.selectbox(
+        'Which perspective would you like to use for the journey?',
+        ('first person (me, myself, I)', 'third person (he/she/them)'))
+
+
+st.markdown("## Persona")
+scope_input = get_persona()
+
+st.markdown("## Concept summary")
 concept_input = get_concept()
+
+st.markdown("## Scope")
+scope_input = get_scope()
+
+
 
 if len(concept_input.split(" ")) > 100:
     st.write("Please enter a shorter scope. The maximum length is 100 words.")
