@@ -1,7 +1,31 @@
 import streamlit as st
+from langchain.callbacks.base import BaseCallbackHandler
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import ChatMessage
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
  
+class StreamHandler(BaseCallbackHandler):
+    def __init__(self, container, initial_text=""):
+        self.container = container
+        self.text = initial_text
+
+    def on_llm_new_token(self, token: str, **kwargs) -> None:
+        self.text += token
+        self.container.markdown(self.text)
+
+
+with st.sidebar:
+   "This is an experimental space for the TiSDD training. Do not use with real project data."
+   gptversion = 'gpt-3.5-turbo' # default: gpt-3.5-turbo
+   gptversion = st.selectbox(
+    'Choose ChatGPT version',
+    ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-0613'))
+    # openai_api_key = st.text_input("OpenAI API Key", type="password")
+   
+openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
+
+
 template = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
@@ -51,12 +75,6 @@ st.header("TiSDD Journey Map Generator")
 
 st.markdown("# Some heading")
 
-def get_api_key():
-    input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
-    return input_text
-
-openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
-
 
 def get_persona():
     input_text = st.text_area(label="Persona input", label_visibility='collapsed', placeholder="Your persona...", key="persona_input")
@@ -71,48 +89,50 @@ def get_scope():
     return input_text
 
 
-st.markdown("## Perspective")
-option_person = st.selectbox(
+with st.form(key='journey_input_form'):
+
+    st.markdown("## Perspective")
+    option_person = st.selectbox(
         'Which perspective would you like to use for the journey?',
         ('first person (me, myself, I)', 'third person (he/she/them)'))
 
+    st.markdown("## Persona")
+    persona_input = get_persona()
 
-st.markdown("## Persona")
-persona_input = get_persona()
+    st.markdown("## Concept summary")
+    concept_input = get_concept()
 
-st.markdown("## Concept summary")
-concept_input = get_concept()
-
-st.markdown("## Scope")
-scope_input = get_scope()
-
+    st.markdown("## Scope")
+    scope_input = get_scope()
+    
+    submit_button = st.form_submit_button(label='Generate journey draft')
 
 
-if len(concept_input.split(" ")) > 100:
-    st.write("Please enter a shorter scope. The maximum length is 100 words.")
-    st.stop()
+## if len(concept_input.split(" ")) > 100:
+##     st.write("Please enter a shorter scope. The maximum length is 100 words.")
+##     st.stop()
 
-if len(concept_input.split(" ")) > 500:
-    st.write("Please enter a shorter concept description. The maximum length is 500 words.")
-    st.stop()
-
-def update_text_with_example():
-    print ("in updated")
-    st.session_state.email_input = "Sally I am starts work at yours monday from dave"
-
-st.button("*See An Example*", type='secondary', help="Click to see an example of the email you will be converting.", on_click=update_text_with_example)
+## if len(concept_input.split(" ")) > 500:
+##     st.write("Please enter a shorter concept description. The maximum length is 500 words.")
+##    st.stop()
 
 st.markdown("### Your Journey Draft:")
 
-if concept_input:
-    if not openai_api_key:
-        st.warning('Please insert OpenAI API Key. Instructions [here](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)', icon="⚠️")
-        st.stop()
 
-    llm = OpenAI(openai_api_key=openai_api_key)
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
 
-    prompt_with_concept = prompt.format(persona=persona_input, concept=concept_input, scope=scope_input, person_select=option_person)
+for msg in st.session_state.messages:
+    st.chat_message(msg.role).write(msg.content)
 
-    journey_draft = llm(prompt_with_concept)
 
-    st.markdown(journey_draft)
+st.session_state.messages.append(ChatMessage(role="user", content=prompt))
+
+for msg in st.session_state.messages:
+    st.chat_message(msg.role).write(msg.content)
+
+with st.chat_message("assistant"):
+        stream_handler = StreamHandler(st.empty())
+        llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion, streaming=True, callbacks=[stream_handler])
+        response = llm(st.session_state.messages)
+        st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
