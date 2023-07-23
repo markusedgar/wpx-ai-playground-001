@@ -112,4 +112,4 @@ if concept_input:
 
     journey_draft = llm(prompt_with_concept)
 
-    st.write(journey_draft) with at least 12+ steps
+    st.markdown(journey_draft)
