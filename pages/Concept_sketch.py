@@ -101,7 +101,7 @@ def get_scope():
 with st.form(key='journey_input_form'):
 
     st.markdown("## Perspective")
-    option_person = st.selectbox(
+    perspective_input = st.selectbox(
         'Which perspective would you like to use for the journey?',
         ('first person (me, myself, I)', 'third person (he/she/them)'))
 
