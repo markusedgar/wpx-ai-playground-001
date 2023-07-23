@@ -123,7 +123,7 @@ with st.form(key='journey_input_form'):
             st.chat_message(msg.role).write(msg.content)
 
          #  st.session_state.messages.append(ChatMessage(role="user", content=chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
-         st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
+        st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
 
        with st.chat_message("assistant"):
             stream_handler = StreamHandler(st.empty())
