@@ -2,8 +2,13 @@ import streamlit as st
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
-from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
- 
+from langchain import PromptTemplate
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    AIMessagePromptTemplate,
+    HumanMessagePromptTemplate)
+
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 
 class StreamHandler(BaseCallbackHandler):
@@ -25,7 +30,6 @@ with st.sidebar:
     # openai_api_key = st.text_input("OpenAI API Key", type="password")
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
-
 
 systemTemplate = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach.";
 systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(template);
