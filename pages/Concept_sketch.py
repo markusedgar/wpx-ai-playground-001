@@ -19,16 +19,16 @@ template = """
 
     For each step create:
 
-    * A title. 
-    * Description of activities and experiences of the given persona at this step in not longer than 50 words.
-    * A touchpoint label: 
+    * title. 
+    * description. Description of activities and experiences of the given persona at this step in not longer than 50 words.
+    * label. Label the step based on those three labels: 
         * DIRECT for direct touchpoints (iteracting with the provider, e.g. meeting, workshop or phone call)
         * INDIRECT for indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth)
         * INTERNAL for internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
 
     Output the journey map as a markdown table with one column for each step. Use the format:
 
-    (step title) | (step title) | (step title) | (step title) | …
+    (title) | (title) | (title) | (title) | …
     --- | --- | --- | --- | --- 
     ( description) | (description) | (description) | (description) | …
     ( label) | (label) | (label) | (label) | …
