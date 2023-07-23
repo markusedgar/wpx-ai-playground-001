@@ -73,7 +73,7 @@ def load_LLM(openai_api_key):
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 st.header("TiSDD Journey Map Generator")
 
-st.markdown("# Some heading")
+st.markdown("# Some heading 2")
 
 
 def get_persona():
