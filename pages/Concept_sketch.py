@@ -31,10 +31,10 @@ with st.sidebar:
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
-systemTemplate = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
-systemMessagePrompt = SystemMessagePromptTemplate.from_template(systemTemplate)
+system_template = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
+system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
 
-humanTemplate = """
+human_template = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
     PERSONA: 
@@ -65,14 +65,15 @@ humanTemplate = """
     ( description) | (description) | (description) | (description) | …
     ( label) | (label) | (label) | (label) | … """
 
-humanMessagePrompt = HumanMessagePromptTemplate.from_template(humanTemplate)
+human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
 ## prompt=PromptTemplate(
 ##    template=humanTemplate,
 ##    input_variables=["persona_input", "concept_input", "scope_input", "perspective_input"],
 ## )
 
-chatPrompt = ChatPromptTemplate.fromPromptMessages([systemMessagePrompt, humanMessagePrompt])
+chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
 
 ## humanMessagePrompt = ChatPromptTemplate(
 ##    input_variables=["persona", "concept", "scope", "person_select"],
