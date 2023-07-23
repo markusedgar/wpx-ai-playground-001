@@ -113,7 +113,7 @@ with st.form(key='journey_input_form'):
 
     st.markdown("## Scope")
     scope_input = get_scope()
-    
+     
     submit_button = st.form_submit_button(label='Generate journey draft')
     if submit_button:
         st.markdown("### Your Journey Draft:")
