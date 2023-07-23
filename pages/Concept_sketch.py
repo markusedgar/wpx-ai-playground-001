@@ -121,19 +121,19 @@ with st.form(key='journey_input_form'):
 
 st.markdown("### Your Journey Draft:")
 ##st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
 
 for msg in st.session_state.messages:   
     st.chat_message(msg.role).write(msg.content)
 
-
 if concept_input:
     formatted_prompt = chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input)
     messages = formatted_prompt.to_messages()
-    st.write(messages)
+    #st.write(messages)
     for msg in messages:   
-        st.session_state.messages.append(msg)
+        st.session_state.messages.append(ChatMessage(role="user", content=msg.content))
 
 #  st.session_state.messages.append(ChatMessage(role="user", content=chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
 
