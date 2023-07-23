@@ -15,7 +15,8 @@ template = """
     {scope}
 
     For the given concept create customer experience as a step-by-step journey map as a table with one column for each step.
- 
+    Use {person_select} for any description. Use emotional language where appropriate.
+
     For each step create:
 
     * A title. 
