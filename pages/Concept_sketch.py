@@ -75,7 +75,7 @@ option_person = st.selectbox(
 
 
 st.markdown("## Persona")
-scope_input = get_persona()
+persona_input = get_persona()
 
 st.markdown("## Concept summary")
 concept_input = get_concept()
@@ -99,7 +99,7 @@ def update_text_with_example():
 
 st.button("*See An Example*", type='secondary', help="Click to see an example of the email you will be converting.", on_click=update_text_with_example)
 
-st.markdown("### Your Converted Email:")
+st.markdown("### Your Journey Draft:")
 
 if concept_input:
     if not openai_api_key:
@@ -108,7 +108,7 @@ if concept_input:
 
     llm = load_LLM(openai_api_key=openai_api_key)
 
-    prompt_with_concept = prompt.format(persona=option_persona, concept=concept_input, person=option_person, scope=input_scope)
+    prompt_with_concept = prompt.format(persona=persona_input, concept=concept_input, person=option_person, scope=input_scope)
 
     journey_draft = llm(prompt_with_concept)
 
