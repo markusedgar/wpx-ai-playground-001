@@ -82,7 +82,7 @@ chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_mes
 
 st.header("TiSDD Journey Map Generator")
 
-st.markdown("# Some heading 2")
+st.markdown("# Some heading 3")
 
 
 def get_persona():
