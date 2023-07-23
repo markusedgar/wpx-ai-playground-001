@@ -73,11 +73,21 @@ with col2:
         'Which scope would you like to look at?',
         ('end-2-end', ''))
 
-def get_text():
+def get_concept():
     input_text = st.text_area(label="Concept input", label_visibility='collapsed', placeholder="Your concept...", key="concept_input")
     return input_text
 
-concept_input = get_text()
+def get_scope():
+    input_text = st.text_area(label="Scope input", label_visibility='collapsed', placeholder="Your scope...", key="scope_input")
+    return input_text
+
+
+scope_input = get_scope()
+concept_input = get_concept()
+
+if len(concept_input.split(" ")) > 100:
+    st.write("Please enter a shorter scope. The maximum length is 100 words.")
+    st.stop()
 
 if len(concept_input.split(" ")) > 500:
     st.write("Please enter a shorter concept description. The maximum length is 500 words.")
