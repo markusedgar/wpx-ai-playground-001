@@ -32,7 +32,7 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 systemTemplate = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach.";
-systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(template);
+systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(systemTemplate);
 
 humanTemplate = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
@@ -66,6 +66,11 @@ humanTemplate = """
     ( label) | (label) | (label) | (label) | … """
 
 humanMessagePrompt = HumanMessagePromptTemplate.fromTemplate(humanTemplate)
+
+## prompt=PromptTemplate(
+##    template=humanTemplate,
+##    input_variables=["persona_input", "concept_input", "scope_input", "perspective_input"],
+## )
 
 chatPrompt = ChatPromptTemplate.fromPromptMessages([systemMessagePrompt, humanMessagePrompt])
 
@@ -115,6 +120,8 @@ with st.form(key='journey_input_form'):
             st.session_state["messages"] = [ChatMessage(role="assistant", content="Let's get to work.")]
         for msg in st.session_state.messages:   
             st.chat_message(msg.role).write(msg.content)
+
+        st.session_state.messages.append(ChatMessage(role="user", content=chatprompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
 
         with st.chat_message("assistant"):
             stream_handler = StreamHandler(st.empty())
