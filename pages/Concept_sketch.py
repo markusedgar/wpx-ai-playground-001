@@ -108,7 +108,7 @@ if concept_input:
         st.warning('Please insert OpenAI API Key. Instructions [here](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)', icon="⚠️")
         st.stop()
 
-    llm = load_LLM(openai_api_key=openai_api_key, model="gpt-4")
+    llm = OpenAI(model="gpt-4", openai_api_key=openai_api_key)
 
     prompt_with_concept = prompt.format(persona=persona_input, concept=concept_input, scope=scope_input, person_select=option_person)
 
