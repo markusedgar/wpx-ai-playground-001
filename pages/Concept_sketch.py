@@ -125,7 +125,8 @@ with st.form(key='journey_input_form'):
 
         formatted_prompt = chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()
         messages = formatted_prompt.to_messages()
-        st.session_state.messages.append(messages)
+        for msg in messages:   
+            st.session_state.messages.append(msg)
         
         #  st.session_state.messages.append(ChatMessage(role="user", content=chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages()))
         
