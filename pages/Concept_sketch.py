@@ -15,22 +15,20 @@ template = """
     {scope}
 
     For the given concept create customer experience as a step-by-step journey map as a table with one column for each step.
+ 
+    For each step create:
 
-    Each step has a title. Only use one or two words for the title. 
-    Each step has a description (activities and experiences of the given persona at this step). Use {person_select} for the description. Use emotional language where appropriate.
-    
-    Add a label for each step of the journey either as
-    * direct touchpoint (iteracting with the provider, e.g. meeting, workshop or phone call)
-    * Indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth)
-    * Internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
-
-    Create a step-by-step journey map with at least 12+ steps, 
+    * A title. 
+    * Description of activities and experiences of the given persona at this step in not longer than 50 words.
+    * A touchpoint label: DIRECT for direct touchpoints (iteracting with the provider, e.g. meeting, workshop or phone call); INDIRECT for indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth); INTERNAL for internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
 
     Output the journey map as a markdown table with one column for each step. Use the format:
 
     (step title) | (step title) | (step title) | (step title) | …
     --- | --- | --- | --- | --- 
     ( description) | (description) | (description) | (description) | …
+    ( label) | (label) | (label) | (label) | …
+    
 
 """
 
