@@ -32,7 +32,7 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 systemTemplate = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
-systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(systemTemplate)
+systemMessagePrompt = SystemMessagePromptTemplate.from_template(systemTemplate)
 
 humanTemplate = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
