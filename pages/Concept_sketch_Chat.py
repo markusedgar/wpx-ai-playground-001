@@ -14,6 +14,8 @@ with st.sidebar:
 system_template = """You are a helpful assistant."""
 system_message_prompt = ChatPromptTemplate.from_template(system_template)
 
+st.write(system_message_prompt)
+
 journey_template = """
     Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format:    
     
