@@ -17,31 +17,19 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 journey_template = """
-    Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
+    Below is a description of a target audience (as a persona description) and a new service business concept.      
     
     PERSONA/MAIN ACTOR: 
     {persona_input}
 
-    CONCEPT: 
+    SERVICE CONCEPT: 
     {concept_input}
 
-    Generate 10-12 steps of the end-2-end experience 
-    (e.g. Become aware, Get informed, Commit, Pay, Use, Deal with a problem, Share the experience, Leave, Renew or return.)
+    
+    Provide a table of the step-by-step experience of the persona with the service in markdown format.
+    Focus on the end-2-end experience in 10-12 steps (from becoming aware of the service to Renewing the contract or returning.)
 
     For each step create a description of activities and experiences in about 50 words. Use {perspective_input} language.
-
-    Output the journey steps as a list. Use the format:
-    
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
-    (title): (description in 100 words)
 
 """
 
