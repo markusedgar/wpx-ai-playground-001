@@ -81,7 +81,7 @@ with st.form(key='journey_input_form'):
                     persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                         )
                     # Initialize the OpenAI module, load and run the summarize chain
-                    llm = OpenAI(openai_api_key=openai_api_key, max_tokens = 2048)
+                    llm = OpenAI(openai_api_key=openai_api_key, max_tokens = 4000)
                     llm_result = llm(prompt_text)
                     st.success(llm_result)
                 except Exception as e:
