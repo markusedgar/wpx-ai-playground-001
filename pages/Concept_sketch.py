@@ -34,12 +34,17 @@ journey_template = """
 
     Output the journey steps as a list. Use the format:
     
-    (title): (description in 50 words)
-    (title): (description in 50 words)
-    (title): (description in 50 words)
-    (title): (description in 50 words)
-    (title): (description in 50 words)
-     
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+    (title): (description in 100 words)
+
 """
 
 prompt = PromptTemplate.from_template(journey_template)
