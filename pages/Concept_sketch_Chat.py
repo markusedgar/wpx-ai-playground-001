@@ -8,11 +8,8 @@ st.set_page_config(page_title="Draft an assumption-based future-state journey", 
 with st.sidebar:
    "This is an experimental space for the TiSDD training. Do not use with real project data."
    gptversion = 'gpt-3.5-turbo' # default: gpt-3.5-turbo
-   gptversion = st.selectbox(
-    'Choose ChatGPT version',
-    ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-0613'))
-    # openai_api_key = st.text_input("OpenAI API Key", type="password")
-    openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
+   gptversion = st.selectbox('Choose ChatGPT version', ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-0613'))
+   openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 journey_template = """
     Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format:    
