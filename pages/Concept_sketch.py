@@ -25,8 +25,7 @@ journey_template = """
     SERVICE CONCEPT: 
     {concept_input}
 
-    
-    Provide a table of the step-by-step experience of the persona with the service in markdown format.
+    Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format.    
     Focus on the end-2-end experience in 10-12 steps (from becoming aware of the service to Renewing the contract or returning.)
 
     For each step create a description of activities and experiences in about 50 words. Use {perspective_input} language.
