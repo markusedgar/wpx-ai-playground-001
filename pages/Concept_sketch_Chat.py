@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
-from langchain import PromptTemplate
+from langchain import ChatPromptTemplate
 
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 
@@ -10,6 +10,9 @@ with st.sidebar:
    gptversion = 'gpt-3.5-turbo' # default: gpt-3.5-turbo
    gptversion = st.selectbox('Choose ChatGPT version', ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-0613'))
    openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
+
+system_template = """You are a helpful assistant."""
+system_message_prompt = ChatPromptTemplate.from_template(system_template)
 
 journey_template = """
     Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format:    
@@ -25,7 +28,10 @@ journey_template = """
 
 """
 
-prompt = PromptTemplate.from_template(journey_template)
+human_message_prompt = ChatPromptTemplate.from_template(journey_template)
+
+chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
 
 st.header("TiSDD Journey Map Generator")
 
@@ -56,14 +62,7 @@ with st.form(key='journey_input_form'):
             st.markdown("### Your Journey Draft:")
             with st.spinner('Please wait...'):
                 # prepare the prompt
-                prompt_text = prompt.format(
-                persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
-                    )
-                st.write(prompt_text)
+                st.write(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
                 llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion)
-                response = llm([
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": "Tell me about the theory of relativity."}])
-                # Initialize the OpenAI module, load and run the summarize chain
-                # chat = ChatOpenAI(openai_api_key=openai_api_key, model = gptversion)
+                response = llm(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
                 st.success(response)
