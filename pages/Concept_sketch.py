@@ -43,7 +43,7 @@ journey_template = """
     ( description) | (description) | (description) | (description) | …
     ( label) | (label) | (label) | (label) | … """
 
-prompt = HumanMessagePromptTemplate.from_template(journey_template)
+prompt = PromptTemplate.from_template(journey_template)
 
 
 st.header("TiSDD Journey Map Generator")
