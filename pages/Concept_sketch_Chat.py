@@ -1,6 +1,11 @@
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
 
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 
