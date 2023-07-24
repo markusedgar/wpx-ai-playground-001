@@ -95,18 +95,18 @@ def get_scope():
 
 with st.form(key='journey_input_form'):
 
-    st.markdown("## Perspective")
+    st.markdown("### Perspective")
     perspective_input = st.selectbox(
         'Which perspective would you like to use for the journey?',
         ('first person (me, myself, I)', 'third person (he/she/them)'))
 
-    st.markdown("## Persona")
+    st.markdown("### Persona/Main actor")
     persona_input = get_persona()
 
-    st.markdown("## Concept summary")
+    st.markdown("### Concept summary")
     concept_input = get_concept()
 
-    st.markdown("## Scope")
+    st.markdown("### Scope")
     scope_input = get_scope()
      
     submit_button = st.form_submit_button(label='Generate journey draft')
