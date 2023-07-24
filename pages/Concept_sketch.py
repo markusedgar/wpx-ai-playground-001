@@ -25,17 +25,13 @@ journey_template = """
     CONCEPT: 
     {concept_input}
 
-    SCOPE: 
-    {scope_input}
+    In at least 10 steps, map out the experience journey of the persona/main actor end-2-end, from becoming aware of the concept to cancelling and returning back as a client in the future.
 
-    For the given concept create customer experience as a step-by-step journey map as a table with one column for each step.
-    Use {perspective_input} for any description. Use emotional language where appropriate.
-
-    For each step create:
-
+    
+    For each step create
     * title. 
-    * description. Description of activities and experiences of the given persona at this step in not longer than 50 words.
- 
+    * description. Description of activities and experiences at a step in about 50 words. Use {perspective_input} for any descriptions.
+
     Output the journey map as a markdown table with one column for each step. Use the format:
 
     (title) | (title) | (title) | (title) | …
@@ -44,7 +40,6 @@ journey_template = """
     ( label) | (label) | (label) | (label) | … """
 
 prompt = PromptTemplate.from_template(journey_template)
-
 
 st.header("TiSDD Journey Map Generator")
 
