@@ -65,5 +65,5 @@ with st.form(key='journey_input_form'):
                     )
                 st.write(prompt_text)
                 # Initialize the OpenAI module, load and run the summarize chain
-                chat = ChatOpenAI(openai_api_key=openai_api_key, model = gptversion)
+                # chat = ChatOpenAI(openai_api_key=openai_api_key, model = gptversion)
                 st.success(chat_result)
