@@ -1,11 +1,7 @@
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
+from langchain.schema import ChatMessage
 from langchain import PromptTemplate
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
 
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
 
@@ -64,6 +60,10 @@ with st.form(key='journey_input_form'):
                 persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                     )
                 st.write(prompt_text)
+                llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion)
+                response = llm([
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": "Tell me about the theory of relativity."}])
                 # Initialize the OpenAI module, load and run the summarize chain
                 # chat = ChatOpenAI(openai_api_key=openai_api_key, model = gptversion)
-                st.success(chat_result)
+                st.success(response)
