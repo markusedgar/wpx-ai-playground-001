@@ -60,6 +60,8 @@ with st.form(key='journey_input_form'):
                     prompt_text = prompt.format(
                     persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                         )
+                    st.write(prompt_text)
+                    st.write(HumanMessage(content = prompt_text))
                     # Initialize the OpenAI module, load and run the summarize chain
                     chat = ChatOpenAI(openai_api_key=openai_api_key, model = gptversion)
                     chat_result = chat(HumanMessage(content = prompt_text))
