@@ -81,23 +81,16 @@ with st.form(key='journey_input_form'):
          with st.spinner('Please wait...'):
             try:
                 st.markdown("### Your Journey Draft:")
-                
                 with st.spinner('Please wait...'):
-                
                 # prepare the prompt
-            prompt_text = prompt.format_prompt(
-            persona_input=persona_input, concept_input=concept_input,scope_input=scope_input, perspective_input=perspective_input
-            )
-
-            # Initialize the OpenAI module, load and run the summarize chain
-            llm = OpenAI(openai_api_key=openai_api_key)
-            llm_result = llm.generate(prompt_text)
-
-            st.success(llm_result)
+                prompt_text = prompt.format_prompt(
+                persona_input=persona_input, concept_input=concept_input,scope_input=scope_input, perspective_input=perspective_input
+                )
+                # Initialize the OpenAI module, load and run the summarize chain
+                llm = OpenAI(openai_api_key=openai_api_key)
+                llm_result = llm.generate(prompt_text)
+                st.success(llm_result)
             
-        except Exception as e:
-            st.exception(f"An error occurred: {e}")
+            except Exception as e:
+                st.exception(f"An error occurred: {e}")
 
-
-
-        
