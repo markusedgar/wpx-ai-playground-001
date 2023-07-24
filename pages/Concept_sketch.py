@@ -51,10 +51,6 @@ def get_concept():
     input_text = st.text_area(label="Concept input", label_visibility='collapsed', placeholder="Your concept...", key="concept_input")
     return input_text
 
-def get_scope():
-    input_text = st.text_area(label="Scope input", label_visibility='collapsed', placeholder="Your scope...", key="scope_input")
-    return input_text
-
 with st.form(key='journey_input_form'):
 
     st.markdown("### Perspective")
@@ -67,9 +63,6 @@ with st.form(key='journey_input_form'):
 
     st.markdown("### Concept summary")
     concept_input = get_concept()
-
-    st.markdown("### Scope")
-    scope_input = get_scope()
      
     submit_button = st.form_submit_button(label='Generate journey draft')
     if submit_button:
@@ -79,7 +72,7 @@ with st.form(key='journey_input_form'):
                 with st.spinner('Please wait...'):
                     # prepare the prompt
                     prompt_text = prompt.format_prompt(
-                    persona_input=persona_input, concept_input=concept_input,scope_input=scope_input, perspective_input=perspective_input
+                    persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                     )
                     # Initialize the OpenAI module, load and run the summarize chain
                     llm = OpenAI(openai_api_key=openai_api_key)
