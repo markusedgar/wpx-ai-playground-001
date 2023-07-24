@@ -31,13 +31,13 @@ with st.sidebar:
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
-#system_template = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
-#system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
+system_template = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
+system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
 
 human_template = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
-    PERSONA: 
+    PERSONA/MAIN ACTOR: 
     {persona_input}
 
     CONCEPT: 
@@ -53,11 +53,7 @@ human_template = """
 
     * title. 
     * description. Description of activities and experiences of the given persona at this step in not longer than 50 words.
-    * label. Label the step based on those three labels: 
-        * DIRECT for direct touchpoints (iteracting with the provider, e.g. meeting, workshop or phone call)
-        * INDIRECT for indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth)
-        * INTERNAL for internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
-
+ 
     Output the journey map as a markdown table with one column for each step. Use the format:
 
     (title) | (title) | (title) | (title) | …
@@ -72,8 +68,7 @@ human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 ##    input_variables=["persona_input", "concept_input", "scope_input", "perspective_input"],
 ## )
 
-chat_prompt = ChatPromptTemplate.from_messages([human_message_prompt])
-
+chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
 ## humanMessagePrompt = ChatPromptTemplate(
 ##    input_variables=["persona", "concept", "scope", "person_select"],
@@ -115,11 +110,18 @@ with st.form(key='journey_input_form'):
     scope_input = get_scope()
      
     submit_button = st.form_submit_button(label='Generate journey draft')
-    # if submit_button:
+    if submit_button:
+         with st.spinner('Please wait...'):
+            st.markdown("### Your Journey Draft:")
+
+            prompt_text = chat_prompt.format_prompt(
+            persona_input=persona_input, concept_input=concept_input,scope_input=scope_input, perspective_input=perspective_input
+            ).to_messages()
 
 
+  
 
-st.markdown("### Your Journey Draft:")
+''' 
 ##st.session_state.messages.append(chat_prompt.format_prompt(persona_input = persona_input, concept_input = concept_input, scope_input = scope_input, perspective_input = perspective_input).to_messages())
 
 if "messages" not in st.session_state:
@@ -152,6 +154,10 @@ with st.chat_message("assistant"):
 ##     st.write("Please enter a shorter concept description. The maximum length is 500 words.")
 ##    st.stop()
 
+   * label. Label the step based on those three labels: 
+        * DIRECT for direct touchpoints (iteracting with the provider, e.g. meeting, workshop or phone call)
+        * INDIRECT for indirect touchpoint (indirectly interacting with the provider or with information about the provider, e.g. review sites, word of mouth)
+        * INTERNAL for internal step (not interacting with the provider, e.g. when making internal decisions, comparing alternatives, finding budgets etc.)
 
 
-
+'''
