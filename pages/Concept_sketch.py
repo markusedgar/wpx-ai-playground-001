@@ -17,7 +17,7 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 journey_template = """
-    Please provide a table listing the steps of the persona's experience with the service in columns from left to right CSV format:    
+    Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format:    
     
     PERSONA/MAIN ACTOR: 
     {persona_input}
@@ -28,10 +28,6 @@ journey_template = """
     Focus on the end-2-end experience of that service concept (from becoming aware of the service to Renewing the contract or returning.)
     For each step create a description of activities and experiences in about 50 words. Use {perspective_input} language.
 
-    Example output:
-
-    "*Steps:*", "(step)", "(step)", "(step)" ,"step", "(step)", "(step)", "(step)" ,"step", "(step)", "(step)", "(step)" ,"step" 
-    "*Description:*" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" 
 """
 
 prompt = PromptTemplate.from_template(journey_template)
