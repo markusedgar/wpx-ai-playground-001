@@ -79,6 +79,6 @@ with st.form(key='journey_input_form'):
                     llm_result = llm.generate(prompt_text)
                 st.success(llm_result)
             
-            except Exception as e:
-                st.exception(f"An error occurred: {e}")
+#            except Exception as e:
+#                st.exception(f"An error occurred: {e}")
 
