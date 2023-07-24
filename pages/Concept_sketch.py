@@ -1,24 +1,9 @@
 import streamlit as st
-from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
 from langchain import PromptTemplate
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    AIMessagePromptTemplate,
-    HumanMessagePromptTemplate)
 
 st.set_page_config(page_title="Draft an assumption-based future-state journey", page_icon=":robot:")
-
-class StreamHandler(BaseCallbackHandler):
-    def __init__(self, container, initial_text=""):
-        self.container = container
-        self.text = initial_text
-
-    def on_llm_new_token(self, token: str, **kwargs) -> None:
-        self.text += token
-        self.container.markdown(self.text)
 
 
 with st.sidebar:
@@ -31,10 +16,7 @@ with st.sidebar:
    
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
-system_template = "You are a helpful assistant supports creating business concepts through a This is Service Design Doing like approach."
-system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
-
-human_template = """
+journey_template = """
     Below is a description of a new service business concept, a target audience (as a persona description), and a scope to look at.      
     
     PERSONA/MAIN ACTOR: 
@@ -61,24 +43,10 @@ human_template = """
     ( description) | (description) | (description) | (description) | …
     ( label) | (label) | (label) | (label) | … """
 
-human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+prompt = HumanMessagePromptTemplate.from_template(journey_template)
 
-## prompt=PromptTemplate(
-##    template=humanTemplate,
-##    input_variables=["persona_input", "concept_input", "scope_input", "perspective_input"],
-## )
-
-chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-
-## humanMessagePrompt = ChatPromptTemplate(
-##    input_variables=["persona", "concept", "scope", "person_select"],
-##    template=template,
-## )
 
 st.header("TiSDD Journey Map Generator")
-
-st.markdown("# Some heading 3")
-
 
 def get_persona():
     input_text = st.text_area(label="Persona input", label_visibility='collapsed', placeholder="Your persona...", key="persona_input")
@@ -91,7 +59,6 @@ def get_concept():
 def get_scope():
     input_text = st.text_area(label="Scope input", label_visibility='collapsed', placeholder="Your scope...", key="scope_input")
     return input_text
-
 
 with st.form(key='journey_input_form'):
 
@@ -112,8 +79,25 @@ with st.form(key='journey_input_form'):
     submit_button = st.form_submit_button(label='Generate journey draft')
     if submit_button:
          with st.spinner('Please wait...'):
-            st.markdown("### Your Journey Draft:")
-
-            prompt_text = chat_prompt.format_prompt(
+            try:
+                st.markdown("### Your Journey Draft:")
+                
+                with st.spinner('Please wait...'):
+                
+                # prepare the prompt
+            prompt_text = prompt.format_prompt(
             persona_input=persona_input, concept_input=concept_input,scope_input=scope_input, perspective_input=perspective_input
-            ).to_messages()
+            )
+
+            # Initialize the OpenAI module, load and run the summarize chain
+            llm = OpenAI(openai_api_key=openai_api_key)
+            llm_result = llm.generate(prompt_text)
+
+            st.success(llm_result)
+            
+        except Exception as e:
+            st.exception(f"An error occurred: {e}")
+
+
+
+        
