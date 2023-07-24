@@ -61,9 +61,8 @@ with st.form(key='journey_input_form'):
     if submit_button:
          with st.spinner('Please wait...'):
             st.markdown("### Your Journey Draft:")
-            with st.spinner('Please wait...'):
-                # prepare the prompt
-                st.write(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
-                llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion)
-                response = llm(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
-                st.success(response)
+            # prepare the prompt
+            st.write(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
+            #llm = ChatOpenAI(openai_api_key=openai_api_key, model=gptversion)
+            #response = llm(chat_prompt.format_prompt(persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input))
+            st.write("Test")
