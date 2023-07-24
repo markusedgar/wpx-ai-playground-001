@@ -17,7 +17,7 @@ with st.sidebar:
 openai_api_key = st.secrets.wpxspecial.OPENAIAPIKEY
 
 journey_template = """
-    Please provide a table listing the steps of the persona's experience with the service in columns from left to right in markdown format:    
+    Please provide a table listing the steps of the persona's experience with the service in columns from left to right CSV format:    
     
     PERSONA/MAIN ACTOR: 
     {persona_input}
@@ -30,10 +30,8 @@ journey_template = """
 
     Example output:
 
-    *Steps:* | step 1 | step 2 | step 3 | step 4 | step 5 | step 6  | step 7 | step 8 | step 9 | step 10 | step 11 | step 12 
-    --- | --- | --- | --- | --- | --- | --- |  --- | --- | --- | --- | --- | --- | --- 
-    *Description:* | (description) | (description) | (description) | (description) | (description) | (description)  | (description) | (description) | (description) | (description) | (description) | (description)
-
+    "*Steps:*", "(step)", "(step)", "(step)" ,"step", "(step)", "(step)", "(step)" ,"step", "(step)", "(step)", "(step)" ,"step" 
+    "*Description:*" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" , "(description)" 
 """
 
 prompt = PromptTemplate.from_template(journey_template)
@@ -72,7 +70,7 @@ with st.form(key='journey_input_form'):
                     persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                         )
                     # Initialize the OpenAI module, load and run the summarize chain
-                    llm = OpenAI(openai_api_key=openai_api_key, max_tokens = 3000, temperature = 1)
+                    llm = OpenAI(openai_api_key=openai_api_key, max_tokens = 3000, temperature = 1, )
                     llm_result = llm(prompt_text)
                     st.success(llm_result)
                 except Exception as e:
