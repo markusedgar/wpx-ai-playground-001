@@ -32,12 +32,15 @@ journey_template = """
     * title. 
     * description. Description of activities and experiences at a step in about 50 words. Use {perspective_input} for any descriptions.
 
-    Output the journey map as a markdown table with one column for each step. Use the format:
-
-    (title) | (title) | (title) | (title) | …
-    --- | --- | --- | --- | --- 
-    ( description) | (description) | (description) | (description) | …
-    ( label) | (label) | (label) | (label) | … """
+    Output the journey steps as a list. Use the format:
+    
+    (title): (description in 50 words)
+    (title): (description in 50 words)
+    (title): (description in 50 words)
+    (title): (description in 50 words)
+    (title): (description in 50 words)
+     
+"""
 
 prompt = PromptTemplate.from_template(journey_template)
 
