@@ -32,6 +32,7 @@ human_message_prompt = ChatPromptTemplate.from_template(journey_template)
 
 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
+st.write(chat_prompt)
 
 st.header("TiSDD Journey Map Generator")
 
