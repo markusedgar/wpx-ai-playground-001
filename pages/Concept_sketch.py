@@ -25,12 +25,10 @@ journey_template = """
     CONCEPT: 
     {concept_input}
 
-    In at least 10 steps, map out the experience journey of the persona/main actor end-2-end, from becoming aware of the concept to cancelling and returning back as a client in the future.
+    Generate 10-12 steps of the end-2-end experience 
+    (e.g. Become aware, Get informed, Commit, Pay, Use, Deal with a problem, Share the experience, Leave, Renew or return.)
 
-    
-    For each step create
-    * title. 
-    * description. Description of activities and experiences at a step in about 50 words. Use {perspective_input} for any descriptions.
+    For each step create a description of activities and experiences in about 50 words. Use {perspective_input} language.
 
     Output the journey steps as a list. Use the format:
     
@@ -83,7 +81,7 @@ with st.form(key='journey_input_form'):
                     persona_input=persona_input, concept_input=concept_input,perspective_input=perspective_input
                         )
                     # Initialize the OpenAI module, load and run the summarize chain
-                    llm = OpenAI(openai_api_key=openai_api_key)
+                    llm = OpenAI(openai_api_key=openai_api_key, max_tokens = 2048)
                     llm_result = llm(prompt_text)
                     st.success(llm_result)
                 except Exception as e:
